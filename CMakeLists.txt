@@ -1,9 +1,35 @@
 cmake_minimum_required(VERSION 3.22.1)
 project(SakuraProject)
+
+include(FetchContent)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Add the sub directories
+add_subdirectory(Math)
+add_subdirectory(Core)
+
+# Fetch the glfw library from GitHub
+FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG        3.4
+)
+FetchContent_MakeAvailable(glfw)
+
+# Add glad as a library
+add_library(glad ${CMAKE_SOURCE_DIR}/extern/glad/src/glad.c)
+target_include_directories(glad PUBLIC ${CMAKE_SOURCE_DIR}/extern/glad/include)
+
 add_executable(${PROJECT_NAME} main.cpp)
 
-target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Math)
-target_link_libraries(${PROJECT_NAME} Math)
+# link all the libraries
+target_link_libraries(${PROJECT_NAME} glfw glad)
 
-target_link_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/Core)
-target_link_libraries(${PROJECT_NAME} Core)
+# target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Math)
+# target_link_libraries(${PROJECT_NAME} Math)
+
+# target_link_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/Core)
+# target_link_libraries(${PROJECT_NAME} Core)
