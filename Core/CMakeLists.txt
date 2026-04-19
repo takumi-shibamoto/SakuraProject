@@ -1,4 +1,2 @@
-cmake_minimum_required(VERSION 3.22.1)
-project(core)
-add_library(${PROJECT_NAME} INTERFACE)
-target_include_directories(${PROJECT_NAME} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(core INTERFACE)
+target_include_directories(core INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})

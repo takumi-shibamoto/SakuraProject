@@ -8,8 +8,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Add the sub directories
-add_subdirectory(Math)
-add_subdirectory(Core)
+add_subdirectory(math)
+add_subdirectory(core)
 
 # Fetch the glfw library from GitHub
 FetchContent_Declare(
@@ -26,4 +26,4 @@ target_include_directories(glad PUBLIC ${CMAKE_SOURCE_DIR}/extern/glad/include)
 add_executable(${PROJECT_NAME} main.cpp)
 
 # link all the libraries
-target_link_libraries(${PROJECT_NAME} glfw glad math core)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw glad math core)
