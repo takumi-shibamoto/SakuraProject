@@ -26,10 +26,4 @@ target_include_directories(glad PUBLIC ${CMAKE_SOURCE_DIR}/extern/glad/include)
 add_executable(${PROJECT_NAME} main.cpp)
 
 # link all the libraries
-target_link_libraries(${PROJECT_NAME} glfw glad)
-
-# target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/Math)
-# target_link_libraries(${PROJECT_NAME} Math)
-
-# target_link_directories(${PROJECT_NAME} INTERFACE ${CMAKE_SOURCE_DIR}/Core)
-# target_link_libraries(${PROJECT_NAME} Core)
+target_link_libraries(${PROJECT_NAME} glfw glad math core)
