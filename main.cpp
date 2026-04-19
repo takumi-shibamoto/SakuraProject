@@ -7,6 +7,16 @@ void frame_buffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
 }
 
+//Vertex Shader Source
+const char* vertexShaderSource = R"(
+        #version 330 core
+        layout (location = 0) in vec3 aPos;
+        void main()
+        {
+            gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+        }
+    )";
+
 int main()
 {
     glfwInit();
@@ -39,9 +49,38 @@ int main()
     //Set a callback to update the viewport when the window is resized.
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
 
+    //Test verticies
+    float verticies[] = {
+        -0.5f, -0.5f, 0.f,
+         0.5f, -0.5f, 0.f,
+         0.f ,  0.5f, 0.f
+    };
+
+    //Generate the vertex buffer object
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+
+    //Bind the buffer
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    //Copy the vertex data into the buffer's memory.
+    glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
+
+    //Create the vertex shader.
+    unsigned int vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    
+    //Assign and compile the shader source.
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+
     //render loop
     while (!glfwWindowShouldClose(window))
     {
+        //Specify what color to clear the color buffer
+        glClearColor(0.2f, 0.3f, 0.3f, 1.f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
