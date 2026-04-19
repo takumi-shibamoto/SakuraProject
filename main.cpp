@@ -17,6 +17,16 @@ const char* vertexShaderSource = R"(
         }
     )";
 
+//Fragment Shader Source
+const char* fragmentShaderSource = R"(
+        #version 330 core
+        out vec4 FragColor;
+        void main()
+        {
+            FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+        }
+    )";
+
 int main()
 {
     glfwInit();
@@ -70,9 +80,27 @@ int main()
     unsigned int vertexShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     
-    //Assign and compile the shader source.
+    //Assign and compile the vertex shader source.
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
     glCompileShader(vertexShader);
+
+    //Create the fragment shader.
+    unsigned int fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+    //Assign and compile the fragment shader source.
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+
+    int  success;
+    char infoLog[512];
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
 
     //render loop
     while (!glfwWindowShouldClose(window))
