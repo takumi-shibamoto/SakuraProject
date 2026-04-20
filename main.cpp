@@ -92,15 +92,25 @@ int main()
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
-    int  success;
-    char infoLog[512];
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    //Create a shader program
+    unsigned int shaderProgram;
+    shaderProgram = glCreateProgram();
 
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
+    //Attach the vertex and fragment shader and link them
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    //Activate the shader program
+    glUseProgram(shaderProgram);
+
+    //Delete the shaders since it's already linked to the program.
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    //Specify the vertex attribute and enable them
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     //render loop
     while (!glfwWindowShouldClose(window))
