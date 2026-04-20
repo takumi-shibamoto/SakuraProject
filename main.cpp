@@ -66,15 +66,26 @@ int main()
          0.f ,  0.5f, 0.f
     };
 
+    //Generate the vertex array object
+    unsigned int VAO;
+    glGenVertexArrays(1, &VAO);
+
     //Generate the vertex buffer object
     unsigned int VBO;
     glGenBuffers(1, &VBO);
+
+    //Bind the vertex array object
+    glBindVertexArray(VAO);
 
     //Bind the buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     //Copy the vertex data into the buffer's memory.
     glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
+
+    //Specify the vertex attribute and enable them
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     //Create the vertex shader.
     unsigned int vertexShader;
@@ -108,16 +119,16 @@ int main()
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    //Specify the vertex attribute and enable them
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
     //render loop
     while (!glfwWindowShouldClose(window))
     {
         //Specify what color to clear the color buffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
