@@ -17,13 +17,23 @@ const char* vertexShaderSource = R"(
         }
     )";
 
-//Fragment Shader Source
+//Fragment Shader Source 1
 const char* fragmentShaderSource = R"(
         #version 330 core
         out vec4 FragColor;
         void main()
         {
             FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+        }
+    )";
+
+//Fragment Shader Source 2
+const char* fragmentShaderSource2 = R"(
+        #version 330 core
+        out vec4 FragColor;
+        void main()
+        {
+            FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);
         }
     )";
 
@@ -138,8 +148,9 @@ int main()
     }
 
     //Create the fragment shader.
-    unsigned int fragmentShader;
+    unsigned int fragmentShader, fragmentShader2;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
 
     //Assign and compile the fragment shader source.
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -153,9 +164,21 @@ int main()
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
+    //Do the same for the second fragment shader.
+    glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
+    glCompileShader(fragmentShader2);
+
+    glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
     //Create a shader program
-    unsigned int shaderProgram;
+    unsigned int shaderProgram, shaderProgram2;
     shaderProgram = glCreateProgram();
+    shaderProgram2 = glCreateProgram();
 
     //Attach the vertex and fragment shader and link them
     glAttachShader(shaderProgram, vertexShader);
@@ -164,8 +187,21 @@ int main()
 
     //Check for linking errors
     glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
+    if (!success) 
+    {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+    }
+
+    //Do the same for the second shader program
+    glAttachShader(shaderProgram2, vertexShader);
+    glAttachShader(shaderProgram2, fragmentShader2);
+    glLinkProgram(shaderProgram2);
+
+    glGetProgramiv(shaderProgram2, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(shaderProgram2, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
 
@@ -187,6 +223,7 @@ int main()
         glBindVertexArray(VAO1);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
+        glUseProgram(shaderProgram2);
         glBindVertexArray(VAO2);
         glDrawArrays(GL_TRIANGLES, 3, 3);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
