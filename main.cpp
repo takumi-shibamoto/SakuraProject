@@ -21,21 +21,15 @@ const char* vertexShaderSource = R"(
 const char* fragmentShaderSource = R"(
         #version 330 core
         out vec4 FragColor;
+        uniform vec4 ourColor;
         void main()
         {
-            FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+            FragColor = ourColor;
         }
     )";
 
-//Fragment Shader Source 2
-const char* fragmentShaderSource2 = R"(
-        #version 330 core
-        out vec4 FragColor;
-        void main()
-        {
-            FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);
-        }
-    )";
+GLsizei WINDOW_WIDTH = 800;
+GLsizei WINDOW_HEIGHT = 600;
 
 int main()
 {
@@ -64,46 +58,41 @@ int main()
     }
 
     //Set the viewport.
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     //Set a callback to update the viewport when the window is resized.
     glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
 
     //Test verticies triangle.
-    float verticies[] = {
-        -0.5f,  0.3f, 0.f,
-        -0.8f, -0.3f, 0.f,
-        -0.2f, -0.3f, 0.f,
-         0.5f,  0.3f, 0.f,
-         0.8f, -0.3f, 0.f,
-         0.2f, -0.3f, 0.f,
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
     };
 
     //Generate the vertex array object
-    unsigned int VAO1, VAO2;
-    glGenVertexArrays(1, &VAO1);
-    glGenVertexArrays(1, &VAO2);
+    unsigned int VAO;
+    glGenVertexArrays(1, &VAO);
 
     //Generate the vertex buffer object
-    unsigned int VBO1, VBO2;
-    glGenBuffers(1, &VBO1);
-    glGenBuffers(1, &VBO2);
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
 
     //Generate the element buffer object
     //unsigned int EBO;
     //glGenBuffers(1, &EBO);
 
     //Bind the vertex array object
-    glBindVertexArray(VAO1);
+    glBindVertexArray(VAO);
 
     //Bind the buffer
-    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     //Bind the element buffer
     //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
     //Copy the vertex data into the buffer's memory.
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     //Copy the index data into the element buffer's memory.
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
@@ -113,16 +102,6 @@ int main()
     glEnableVertexAttribArray(0);
 
     //Unbind VAO and VBO
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    //Do the same for the second triangle.
-    glBindVertexArray(VAO2);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO2);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
@@ -148,9 +127,8 @@ int main()
     }
 
     //Create the fragment shader.
-    unsigned int fragmentShader, fragmentShader2;
+    unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    fragmentShader2 = glCreateShader(GL_FRAGMENT_SHADER);
 
     //Assign and compile the fragment shader source.
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -164,21 +142,9 @@ int main()
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
-    //Do the same for the second fragment shader.
-    glShaderSource(fragmentShader2, 1, &fragmentShaderSource2, NULL);
-    glCompileShader(fragmentShader2);
-
-    glGetShaderiv(fragmentShader2, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader2, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-    }
-
     //Create a shader program
-    unsigned int shaderProgram, shaderProgram2;
+    unsigned int shaderProgram;
     shaderProgram = glCreateProgram();
-    shaderProgram2 = glCreateProgram();
 
     //Attach the vertex and fragment shader and link them
     glAttachShader(shaderProgram, vertexShader);
@@ -190,18 +156,6 @@ int main()
     if (!success) 
     {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-    }
-
-    //Do the same for the second shader program
-    glAttachShader(shaderProgram2, vertexShader);
-    glAttachShader(shaderProgram2, fragmentShader2);
-    glLinkProgram(shaderProgram2);
-
-    glGetProgramiv(shaderProgram2, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        glGetProgramInfoLog(shaderProgram2, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
 
@@ -219,13 +173,21 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        //Activate the shader.
         glUseProgram(shaderProgram);
-        glBindVertexArray(VAO1);
+
+        //Change the green color value based on the current time.
+        float time = glfwGetTime();
+        float green = std::sin(time) / 2.f + 0.5f;
+
+        //Get the location of the uniform variable inside the fragment shader.
+        int vertexColorLocation{ glGetUniformLocation(shaderProgram, "ourColor") };
+
+        //Set the green value to uniform variable.
+        glUniform4f(vertexColorLocation, 0.f, green, 0.f, 1.f);
+
+        glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
-        glBindVertexArray(0);
-        glUseProgram(shaderProgram2);
-        glBindVertexArray(VAO2);
-        glDrawArrays(GL_TRIANGLES, 3, 3);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
@@ -234,10 +196,8 @@ int main()
     }
 
     //Delete the VAO, VBO, and shader program
-    glDeleteVertexArrays(1, &VAO1);
-    glDeleteVertexArrays(1, &VAO2);
-    glDeleteBuffers(1, &VBO1);
-    glDeleteBuffers(1, &VBO2);
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
     //glDeleteBuffers(1, &EBO);
     glDeleteProgram(shaderProgram);
 
