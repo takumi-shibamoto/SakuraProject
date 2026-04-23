@@ -11,20 +11,23 @@ void frame_buffer_size_callback(GLFWwindow* window, int width, int height)
 const char* vertexShaderSource = R"(
         #version 330 core
         layout (location = 0) in vec3 aPos;
+        layout (location = 1) in vec3 aColor;
+        out vec3 ourColor;
         void main()
         {
-            gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0f);
+            gl_Position = vec4(aPos, 1.0f);
+            ourColor = aColor;
         }
     )";
 
 //Fragment Shader Source 1
 const char* fragmentShaderSource = R"(
         #version 330 core
+        in vec3 ourColor;
         out vec4 FragColor;
-        uniform vec4 ourColor;
         void main()
         {
-            FragColor = ourColor;
+            FragColor = vec4(ourColor, 1.0f);
         }
     )";
 
@@ -65,9 +68,9 @@ int main()
 
     //Test verticies triangle.
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+        -0.5f, -0.5f, 0.0f, 1.f, 0.f, 0.f,
+         0.5f, -0.5f, 0.0f, 0.f, 1.f, 0.f,
+         0.0f,  0.5f, 0.0f, 0.f, 0.f, 1.f
     };
 
     //Generate the vertex array object
@@ -98,8 +101,12 @@ int main()
     //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
 
     //Specify the vertex attribute and enable them
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    //Specify the color attribute and enable them
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     //Unbind VAO and VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -175,16 +182,6 @@ int main()
 
         //Activate the shader.
         glUseProgram(shaderProgram);
-
-        //Change the green color value based on the current time.
-        float time = glfwGetTime();
-        float green = std::sin(time) / 2.f + 0.5f;
-
-        //Get the location of the uniform variable inside the fragment shader.
-        int vertexColorLocation{ glGetUniformLocation(shaderProgram, "ourColor") };
-
-        //Set the green value to uniform variable.
-        glUniform4f(vertexColorLocation, 0.f, green, 0.f, 1.f);
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
