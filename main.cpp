@@ -12,7 +12,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "engine/graphics/Shader.h"
+#include "SakuraEngine/graphics/Shader.h"
 
 void frame_buffer_size_callback(GLFWwindow* window, int width, int height)
 {
