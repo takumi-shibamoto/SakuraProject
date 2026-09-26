@@ -1,3 +1,9 @@
-add_library(graphics Shader.cpp Shader.h)
-target_include_directories(graphics PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(graphics PRIVATE glad glfw)
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS 
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
+)
+
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SOURCE_FILES})
+
+target_sources(SakuraEngine PRIVATE ${SOURCE_FILES})
+target_include_directories(SakuraEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
