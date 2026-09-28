@@ -1,6 +1,6 @@
 #include "Vector2D.h"
 
-namespace sakura::math
+namespace SKR::math
 {
     Vector2D::Vector2D(float valX, float valY)
         : x{valX}

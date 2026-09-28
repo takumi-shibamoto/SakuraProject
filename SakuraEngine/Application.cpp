@@ -1,9 +1,8 @@
 #include "Application.h"
 
-namespace sakura {
+namespace SKR {
 	Application::Application()
 	{
-
 	}
 
 	Application::~Application()

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sakura::math
+namespace SKR::math
 {
     /// @brief 2D vector structure
     struct Vector2D

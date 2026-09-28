@@ -136,7 +136,7 @@
 
 #include "SakuraEngine.h"
 
-class Sandbox : public sakura::Application
+class Sandbox : public SKR::Application
 {
 public:
     Sandbox()
@@ -150,9 +150,7 @@ public:
     }
 };
 
-int main()
+SKR::Application* SKR::CreateApplication()
 {
-    Sandbox* sandbox = new Sandbox();
-    sandbox->Run();
-    delete sandbox;
+    return new Sandbox();
 }

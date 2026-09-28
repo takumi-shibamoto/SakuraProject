@@ -13,7 +13,7 @@
 
 #include <glad/glad.h>
 
-namespace sakura
+namespace SKR
 {
 	Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		: ID{}

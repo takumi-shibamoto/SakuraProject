@@ -16,7 +16,7 @@
 #include <sstream>
 #include <iostream>
 
-namespace sakura 
+namespace SKR 
 {
 	class Shader
 	{
