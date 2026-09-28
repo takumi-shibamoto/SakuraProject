@@ -1,9 +1,9 @@
 @echo off
 echo ===================================================
-echo  SakuraProject - Visual Studio 2022 Solution Setup
+echo  SakuraProject - Visual Studio Solution Setup
 echo ===================================================
 
-cmake -B build -S . -G "Visual Studio 17 2022" -A x64
+cmake -B build -S .
 
 echo.
 echo ===================================================
