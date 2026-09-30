@@ -23,7 +23,7 @@ target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS SKR_BUILD_D
 
 # Set the include directories and link libraries for the SakuraEngine target
 target_include_directories(SakuraEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(SakuraEngine PRIVATE glfw glad::glad spdlog::spdlog)
+target_link_libraries(SakuraEngine PUBLIC glfw glad::glad spdlog::spdlog)
 
 # List all the source files in the SakuraEngine target for better organization in IDEs
 get_target_property(ALL_ENGINE_SOURCES SakuraEngine SOURCES)
