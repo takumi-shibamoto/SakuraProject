@@ -50,3 +50,5 @@ set_target_properties(Application PROPERTIES
 
 # link all the libraries
 target_link_libraries(Application PRIVATE SakuraEngine)
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Application)
