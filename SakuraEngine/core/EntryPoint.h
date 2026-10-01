@@ -10,6 +10,11 @@ extern SKR::Application* SKR::CreateApplication();
 
 int main(int argc, char** argv)
 {
+	sakura::Log::Init();
+	SKR_CORE_DEBUG("debugging logging");
+	int a{ 5 };
+	SKR_INFO("Hello! Var={0}", a);
+
 	SKR::Application* app = SKR::CreateApplication();
     app->Run();
     delete app;

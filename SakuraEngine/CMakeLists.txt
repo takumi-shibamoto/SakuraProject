@@ -13,9 +13,10 @@ find_package(glad CONFIG REQUIRED)
 add_library(SakuraEngine SHARED ${SOURCE_FILES})
 
 # Add subdirectories for the engine modules
+add_subdirectory(core)
+add_subdirectory(event)
 add_subdirectory(graphics)
 add_subdirectory(math)
-add_subdirectory(core)
 add_subdirectory(logging)
 
 # Set the preprocessor Definitions for the SakuraEngine target
