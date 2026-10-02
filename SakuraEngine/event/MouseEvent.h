@@ -108,4 +108,87 @@ namespace sakura {
 		double yOffset;
 	};
 
+	/// <summary>
+	/// Base class for the mouse button events.
+	/// </summary>
+	class SKR_API MouseButtonEvent : public Event
+	{
+	public:
+		/// <summary>
+		/// Get the button code of the event button
+		/// </summary>
+		/// <returns>Integer that represents the button code.</returns>
+		inline int GetButtonCode() const { return buttonCode; }
+
+		// Set the event category as input and mouse button event
+		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouseButton);
+	
+	protected:
+		/// <summary>
+		/// Constructor. This is a protected constructor since there should not be
+		/// a event of this class. The actual event should be it's child class.
+		/// </summary>
+		/// <param name="key">key code of the mouse button pressed.</param>
+		MouseButtonEvent(int key)
+			: buttonCode{ key } {}
+
+		// Button code of the event button.
+		int buttonCode;
+	};
+
+	/// <summary>
+	/// Event that occur when the mouse button is pressed.
+	/// </summary>
+	class SKR_API MouseButtonPressedEvent : public MouseButtonEvent
+	{
+	public:
+		/// <summary>
+		/// Constructor for the mouse button pressed event
+		/// </summary>
+		/// <param name="button">button code for the button pressed.</param>
+		MouseButtonPressedEvent(int button)
+			: MouseButtonEvent{ button } {}
+
+		// Set the event type to be MouseButtonPressed
+		EVENT_CLASS_TYPE(MouseButtonPressed);
+
+		/// <summary>
+		/// Format the mouse button pressed string to include the button code.
+		/// </summary>
+		/// <returns>String that contains the button code.</returns>
+		std::string ToString() const override
+		{
+			std::stringstream ss{};
+			ss << "Mouse Button Pressed Event : " << buttonCode;
+			return ss.str();
+		}
+	};
+
+	/// <summary>
+	/// Event that occur when the mouse button is released.
+	/// </summary>
+	class SKR_API MouseButtonReleasedEvent : public MouseButtonEvent
+	{
+	public:
+		/// <summary>
+		/// Constructor for the mouse button released event.
+		/// </summary>
+		/// <param name="button">button code or the button released.</param>
+		MouseButtonReleasedEvent(int button)
+			: MouseButtonEvent{ button } {}
+		
+		// Set the event type to be MouseButtonReleased
+		EVENT_CLASS_TYPE(MouseButtonReleased);
+
+		/// <summary>
+		/// Format the mouse button released string to include the button code.
+		/// </summary>
+		/// <returns>String that contains the button code.</returns>
+		std::string ToString() const override
+		{
+			std::stringstream ss{};
+			ss << "Mouse Button Released Event : " << buttonCode;
+			return ss.str();
+		}
+	};
 }

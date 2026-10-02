@@ -44,6 +44,10 @@ namespace sakura {
 	/// </summary>
 	class SKR_API Event
 	{
+		// Set the event dispatcher as a friend class so that 
+		// only the dispatch function can handle the handled data member.
+		friend class EventDispatcher;
+
 	public:
 		/// <summary>
 		/// Get the event type.
@@ -85,6 +89,48 @@ namespace sakura {
 	protected:
 		// data member to check if the event has already been handled.
 		bool handled = false;
+	};
+
+	class EventDispatcher
+	{
+		/// <summary>
+		/// Using the EventFn as the event fucntion that will be called when the event happens
+		/// </summary>
+		/// <typeparam name="T">Type of the event</typeparam>
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+
+	public:
+		/// <summary>
+		/// Constructor of the event dispatcher
+		/// </summary>
+		/// <param name="eventRef">Reference of the event that occured</param>
+		EventDispatcher(Event& eventRef)
+			: event{eventRef} {}
+
+		/// <summary>
+		/// Dispatch the event function to the correct type and run the event function.
+		/// </summary>
+		/// <typeparam name="T">Type of the event occured</typeparam>
+		/// <param name="eventFunc">Fucntion to run when the event type matches</param>
+		/// <returns>Boolean that represents if the event has been dispatched or not.</returns>
+		template<typename T>
+		bool Dispatch(EventFn<T> eventFunc)
+		{
+			// Check if the type of the event in the data member matches the event that the event function wants.
+			if (event.GetEventType() == T::GetStaticType())
+			{
+				// If the event function returns true, set the event to be handled.
+				event.handled = func(std::static_cast<T&>(event));
+				return true;
+			}
+
+			return false;
+		}
+
+	private:
+		// Data member which is a reference to the event.
+		Event& event;
 	};
 
 }

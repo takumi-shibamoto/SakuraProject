@@ -27,9 +27,7 @@ namespace sakura {
 		/// </summary>
 		/// <param name="key">key code of the event key.</param>
 		KeyEvent(int key) 
-			: keyCode{ key }
-		{
-		}
+			: keyCode{ key } {}
 
 		// data member that stores the key code.
 		int keyCode;
