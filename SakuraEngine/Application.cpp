@@ -1,3 +1,4 @@
+#include "skrpch.h"
 #include "Application.h"
 
 namespace SKR {

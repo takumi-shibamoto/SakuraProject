@@ -22,6 +22,9 @@ add_subdirectory(logging)
 # Set the preprocessor Definitions for the SakuraEngine target
 target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS SKR_BUILD_DLL)
 
+# Set the precompiled header
+target_precompile_headers(SakuraEngine PRIVATE skrpch.h)
+
 # Set the include directories and link libraries for the SakuraEngine target
 target_include_directories(SakuraEngine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(SakuraEngine PUBLIC glfw glad::glad spdlog::spdlog)

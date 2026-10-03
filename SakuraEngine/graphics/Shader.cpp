@@ -9,6 +9,7 @@
 	Reference: https://learnopengl.com/Getting-started/Shaders
 *//******************************************************************/
 
+#include "skrpch.h"
 #include "Shader.h"
 
 #include <glad/glad.h>

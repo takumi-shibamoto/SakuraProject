@@ -1,3 +1,4 @@
+#include "skrpch.h"
 #include "Vector2D.h"
 
 namespace SKR::math
