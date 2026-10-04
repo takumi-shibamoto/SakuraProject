@@ -50,25 +50,25 @@ namespace sakura {
 		/// Get the width of the window.
 		/// </summary>
 		/// <returns>Unsigned integer that represents the window width.</returns>
-		virtual unsigned int GetWidth() = 0;
+		virtual unsigned int GetWidth() const = 0;
 
 		/// <summary>
 		/// Get the height of the window.
 		/// </summary>
 		/// <returns>Unsigned integer that represents the window height.</returns>
-		virtual unsigned int GetHeight() = 0;
+		virtual unsigned int GetHeight() const = 0;
 
 		/// <summary>
 		/// Register a function that will be called when an event occur.
 		/// </summary>
 		/// <param name="callback">The event callback function to set.</param>
-		virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+		virtual void SetEventCallback(EventCallbackFn const& callback) = 0;
 
 		/// <summary>
 		/// Check if the window is in VSync mode.
 		/// </summary>
 		/// <returns>Boolean value that represents if the window is in VSync mode or not.</returns>
-		virtual bool IsVSync() = 0;
+		virtual bool IsVSync() const = 0;
 
 		/// <summary>
 		/// Set the VSync mode
