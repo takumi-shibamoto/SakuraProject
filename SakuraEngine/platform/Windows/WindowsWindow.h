@@ -5,7 +5,7 @@
 
 namespace sakura {
 
-	class SKR_API WindowsWindow : public Window
+	class WindowsWindow : public Window
 	{
 	public:
 		/// <summary>

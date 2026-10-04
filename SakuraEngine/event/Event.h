@@ -121,7 +121,7 @@ namespace sakura {
 			if (event.GetEventType() == T::GetStaticType())
 			{
 				// If the event function returns true, set the event to be handled.
-				event.handled = func(std::static_cast<T&>(event));
+				event.handled = func(static_cast<T&>(event));
 				return true;
 			}
 
