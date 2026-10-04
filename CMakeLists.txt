@@ -36,7 +36,6 @@ set(EXTERNAL_INCLUDES "")
 
 # Add the sub directories
 add_subdirectory(SakuraEngine)
-add_subdirectory(extern)
 
 file(GLOB_RECURSE SHADERS CONFIGURE_DEPENDS "assets/shaders/*")
 add_executable(Application main.cpp ${SHADERS})

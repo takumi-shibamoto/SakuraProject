@@ -1,26 +1,60 @@
-# Get all the source files in the current directory
-file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS 
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
-)
-
 # Find required packages that is packaged using vcpkg
 find_package(spdlog CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glad CONFIG REQUIRED)
 
 # Create the SakuraEngine shared library
-add_library(SakuraEngine SHARED ${SOURCE_FILES})
+add_library(SakuraEngine SHARED)
 
-# Add subdirectories for the engine modules
-add_subdirectory(core)
-add_subdirectory(event)
-add_subdirectory(graphics)
-add_subdirectory(math)
-add_subdirectory(logging)
+# Include all the files in the sakura engine directory.
+target_sources(SakuraEngine PRIVATE
+
+    # Sakura Engine root folder.
+    Application.cpp
+    Application.h
+    SakuraEngine.h
+    skrpch.h
+    Window.h
+
+    # Core Folder
+    core/Core.h
+    core/EntryPoint.h
+    core/Types.h
+
+    # Event Folder
+    event/ApplicationEvent.h
+    event/Event.h
+    event/KeyEvent.h
+    event/MouseEvent.h
+    event/WindowEvent.h
+
+    # Graphics Folder
+    graphics/Shader.cpp
+    graphics/Shader.h
+
+    # Logging Folder
+    logging/Log.cpp
+    logging/Log.h
+
+    # Math Folder
+    math/Vector2D.cpp
+    math/Vector2D.h
+)
 
 # Set the preprocessor Definitions for the SakuraEngine target
-target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS SKR_BUILD_DLL)
+target_compile_definitions(SakuraEngine PRIVATE SKR_BUILD_DLL)
+
+# Check the platform and include necessary sources and preprocessor Definitions
+if (WIN32)
+    # Set the preprocessor definitions to contain windows plaform
+    target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS)
+
+    # Set the target source to contain windows platform files
+    target_sources(SakuraEngine PRIVATE 
+        platform/Windows/WindowsWindow.cpp
+        platform/Windows/WindowsWindow.h
+    )
+endif()
 
 # Set the precompiled header
 target_precompile_headers(SakuraEngine PRIVATE skrpch.h)
