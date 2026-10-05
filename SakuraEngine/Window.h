@@ -5,7 +5,7 @@
 
 #include <string>
 
-namespace sakura {
+namespace SKR {
 
 	/// <summary>
 	/// Structure that contains window properties

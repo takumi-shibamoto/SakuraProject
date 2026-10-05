@@ -4,7 +4,7 @@
 
 #include <sstream>
 
-namespace sakura {
+namespace SKR {
 
 	/// <summary>
 	/// Event that handles mouse movement

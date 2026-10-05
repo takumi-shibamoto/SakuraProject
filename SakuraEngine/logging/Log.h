@@ -5,7 +5,7 @@
 #include "spdlog/spdlog.h"
 #include "core/Core.h"
 
-namespace sakura {
+namespace SKR {
 
 	class SKR_API Log
 	{
@@ -38,15 +38,15 @@ namespace sakura {
 }
 
 // Core log macros
-#define SKR_CORE_TRACE(...) ::sakura::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define SKR_CORE_INFO(...)  ::sakura::Log::GetCoreLogger()->info(__VA_ARGS__)
-#define SKR_CORE_WARN(...)  ::sakura::Log::GetCoreLogger()->warn(__VA_ARGS__)
-#define SKR_CORE_ERROR(...) ::sakura::Log::GetCoreLogger()->error(__VA_ARGS__)
-#define SKR_CORE_DEBUG(...) ::sakura::Log::GetCoreLogger()->debug(__VA_ARGS__)
+#define SKR_CORE_TRACE(...) ::SKR::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define SKR_CORE_INFO(...)  ::SKR::Log::GetCoreLogger()->info(__VA_ARGS__)
+#define SKR_CORE_WARN(...)  ::SKR::Log::GetCoreLogger()->warn(__VA_ARGS__)
+#define SKR_CORE_ERROR(...) ::SKR::Log::GetCoreLogger()->error(__VA_ARGS__)
+#define SKR_CORE_DEBUG(...) ::SKR::Log::GetCoreLogger()->debug(__VA_ARGS__)
 
 // Client log macros
-#define SKR_TRACE(...) ::sakura::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define SKR_INFO(...)  ::sakura::Log::GetClientLogger()->info(__VA_ARGS__)
-#define SKR_WARN(...)  ::sakura::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define SKR_ERROR(...) ::sakura::Log::GetClientLogger()->error(__VA_ARGS__)
-#define SKR_DEBUG(...) ::sakura::Log::GetClientLogger()->debug(__VA_ARGS__)
+#define SKR_TRACE(...) ::SKR::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define SKR_INFO(...)  ::SKR::Log::GetClientLogger()->info(__VA_ARGS__)
+#define SKR_WARN(...)  ::SKR::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define SKR_ERROR(...) ::SKR::Log::GetClientLogger()->error(__VA_ARGS__)
+#define SKR_DEBUG(...) ::SKR::Log::GetClientLogger()->debug(__VA_ARGS__)

@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-namespace sakura {
+namespace SKR {
 
 	/// <summary>
 	/// Base class for the key events.

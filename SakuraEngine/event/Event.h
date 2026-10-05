@@ -4,7 +4,7 @@
 #include <string>
 #include <functional>
 
-namespace sakura {
+namespace SKR {
 
 	/// <summary>
 	/// Enum that handles all the event types so that it can be filtered.

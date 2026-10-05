@@ -3,7 +3,7 @@
 #include "Window.h"
 #include <GLFW/glfw3.h>
 
-namespace sakura {
+namespace SKR {
 
 	class WindowsWindow : public Window
 	{

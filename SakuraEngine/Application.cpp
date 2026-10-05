@@ -4,6 +4,7 @@
 namespace SKR {
 	Application::Application()
 	{
+		window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	Application::~Application()
@@ -13,6 +14,9 @@ namespace SKR {
 
 	void Application::Run()
 	{
-		while (true);
+		while (isRunning)
+		{
+			window->OnUpdate();
+		}
 	}
 }

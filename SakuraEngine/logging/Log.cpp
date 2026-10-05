@@ -3,7 +3,7 @@
 
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace sakura {
+namespace SKR {
 	std::shared_ptr<spdlog::logger> Log::sCoreLogger;
 	std::shared_ptr<spdlog::logger> Log::sClientLogger;
 

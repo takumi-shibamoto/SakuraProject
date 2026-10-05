@@ -1,5 +1,8 @@
 #pragma once
-#include "core/Core.h"
+
+#include "Window.h"
+#include <memory>
+
 namespace SKR {
 	class SKR_API Application
 	{
@@ -8,6 +11,10 @@ namespace SKR {
 		virtual ~Application();
 
 		void Run();
+
+	private:
+		std::unique_ptr<Window> window;
+		bool isRunning = true;
 	};
 
 	/// <summary>

@@ -3,7 +3,7 @@
 
 #include <sstream>
 
-namespace sakura {
+namespace SKR {
 	
 	/// <summary>
 	/// Event that occur on every tick of the application
