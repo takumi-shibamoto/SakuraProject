@@ -20,4 +20,5 @@
 	#define SKR_CORE_ASSERT(x, ...)
 # endif
 
+// Macro for bits
 #define BIT(x) (1 << x)

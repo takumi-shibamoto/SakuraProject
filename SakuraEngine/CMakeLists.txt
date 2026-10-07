@@ -42,7 +42,7 @@ target_sources(SakuraEngine PRIVATE
 )
 
 # Set the preprocessor Definitions for the SakuraEngine target
-target_compile_definitions(SakuraEngine PRIVATE SKR_BUILD_DLL)
+target_compile_definitions(SakuraEngine PRIVATE SKR_BUILD_DLL $<$<CONFIG:DEBUG>:SKR_ENABLE_ASSERT>)
 
 # Check the platform and include necessary sources and preprocessor Definitions
 if (WIN32)
