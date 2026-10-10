@@ -95,7 +95,7 @@ namespace SKR {
 		std::string ToString() const override
 		{
 			std::stringstream ss{};
-			ss << "Key Pressed Event : " << keyCode;
+			ss << "Key Released Event : " << keyCode;
 			return ss.str();
 		}
 	};

@@ -34,7 +34,7 @@ namespace SKR {
 		EVENT_CLASS_TYPE(WindowResize);
 
 		// Set the event category to application
-		EVENT_CLASS_CATEGORY(EventCaegoryApplicaiton);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 
 		/// <summary>
 		/// Formatted string of the event for debug use.
@@ -109,7 +109,7 @@ namespace SKR {
 		EVENT_CLASS_TYPE(WindowMoved);
 
 		// Set the event category to application
-		EVENT_CLASS_CATEGORY(EventCaegoryApplicaiton);
+		EVENT_CLASS_CATEGORY(EventCategoryApplication);
 
 		/// <summary>
 		/// Formatted string of the event for debug use.

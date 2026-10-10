@@ -2,7 +2,22 @@
 #include "logging/Log.h"
 #include "WindowsWindow.h"
 
+#include "event/ApplicationEvent.h"
+#include "event/KeyEvent.h"
+#include "event/WindowEvent.h"
+#include "event/MouseEvent.h"
+
 namespace SKR {
+
+	/// <summary>
+	/// Error callback function that prints the error message.
+	/// </summary>
+	/// <param name="error">error number</param>
+	/// <param name="description">description of the error.</param>
+	static void GLFWErrorCallback(int error, const char* description)
+	{
+		SKR_CORE_ERROR("GLFW Error ({0}) : {1}", error, description);
+	}
 
 	// Static variable to check if the glfw window has been initialized or not.
 	static bool glfwInitialized = false;
@@ -63,6 +78,9 @@ namespace SKR {
 			// Check if glfw was initialized successfully.
 			SKR_CORE_ASSERT(success, "Could not initialize GLFW.");
 
+			// Set the error callback so that the error can be logged.
+			glfwSetErrorCallback(GLFWErrorCallback);
+
 			glfwInitialized = true;
 		}
 
@@ -77,6 +95,121 @@ namespace SKR {
 
 		// Set the vsync to be true by default.
 		SetVSync(true);
+
+		// Set the GLFW event callbacks
+		// Window close callback
+		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+			{
+				// Get the user window data from the user pointer.
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+				// Create an instance of the window close event class.
+				WindowCloseEvent closeEvent{};
+
+				// Call the event callback function with the instance.
+				data.eventCallback(closeEvent);
+			});
+
+		// Window size callback
+		glfwSetWindowSizeCallback(window, [](GLFWwindow* window, int width, int height)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+				// Set the window width and height to the data.
+				data.width = width;
+				data.height = height;
+
+				WindowResizeEvent resizeEvent{ width, height };
+				data.eventCallback(resizeEvent);
+			});
+
+		// Window focus callback
+		glfwSetWindowFocusCallback(window, [](GLFWwindow* window, int focused)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+				
+				// Check if the window has focused or lost focus.
+				if (focused)
+				{
+					WindowFocusEvent focusEvent{};
+					data.eventCallback(focusEvent);
+				}
+				else
+				{
+					WindowLostFocusEvent lostFocusEvent{};
+					data.eventCallback(lostFocusEvent);
+				}
+			});
+
+		// Window moved callback
+		glfwSetWindowPosCallback(window, [](GLFWwindow* window, int xPos, int yPos)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+				WindowMovedEvent movedEvent{ xPos, yPos };
+				data.eventCallback(movedEvent);
+			});
+
+		// Key callback
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+				// Check if the action is pressed, released, or repeat.
+				switch (action)
+				{
+					case GLFW_PRESS:
+					{
+						KeyPressedEvent pressedEvent{ key, 0 };
+						data.eventCallback(pressedEvent);
+						break;
+					}
+					case GLFW_RELEASE:
+					{
+						KeyReleasedEvent releasedEvent{ key };
+						data.eventCallback(releasedEvent);
+						break;
+					}
+					case GLFW_REPEAT:
+					{
+						KeyPressedEvent pressedEvent{ key, 1 };
+						data.eventCallback(pressedEvent);
+						break;
+					}
+				}
+			});
+
+		// Mouse Button callback
+		glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+				if (action == GLFW_RELEASE)
+				{
+					MouseButtonReleasedEvent releasedEvent{ button };
+					data.eventCallback(releasedEvent);
+				}
+				else
+				{
+					MouseButtonPressedEvent pressedEvent{ button };
+					data.eventCallback(pressedEvent);
+				}
+			});
+
+		// Mouse moved callback
+		glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xPos, double yPos)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+				MouseMovedEvent movedEvent{ xPos, yPos };
+				data.eventCallback(movedEvent);
+			});
+
+		// Mouse scrolled event
+		glfwSetScrollCallback(window, [](GLFWwindow* window, double xOffset, double yOffset)
+			{
+				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+				MouseScrollEvent scrollEvent{ xOffset, yOffset };
+				data.eventCallback(scrollEvent);
+			});
 	}
 
 	void WindowsWindow::Shutdown()

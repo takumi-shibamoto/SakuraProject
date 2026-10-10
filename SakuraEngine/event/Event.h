@@ -121,7 +121,7 @@ namespace SKR {
 			if (event.GetEventType() == T::GetStaticType())
 			{
 				// If the event function returns true, set the event to be handled.
-				event.handled = func(static_cast<T&>(event));
+				event.handled = eventFunc(static_cast<T&>(event));
 				return true;
 			}
 
@@ -132,5 +132,10 @@ namespace SKR {
 		// Data member which is a reference to the event.
 		Event& event;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, Event const& event)
+	{
+		return os << event.ToString();
+	}
 
 }
