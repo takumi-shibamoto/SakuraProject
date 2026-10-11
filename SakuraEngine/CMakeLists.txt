@@ -10,16 +10,16 @@ add_library(SakuraEngine SHARED)
 target_sources(SakuraEngine PRIVATE
 
     # Sakura Engine root folder.
-    Application.cpp
-    Application.h
     SakuraEngine.h
     skrpch.h
-    Window.h
-
+    
     # Core Folder
+    core/Application.cpp
+    core/Application.h
     core/Core.h
     core/EntryPoint.h
     core/Types.h
+    core/Window.h
 
     # Event Folder
     event/ApplicationEvent.h
@@ -31,6 +31,12 @@ target_sources(SakuraEngine PRIVATE
     # Graphics Folder
     graphics/Shader.cpp
     graphics/Shader.h
+
+    # Layer Folder
+    layer/Layer.cpp
+    layer/Layer.h
+    layer/LayerStack.cpp
+    layer/LayerStack.h
 
     # Logging Folder
     logging/Log.cpp

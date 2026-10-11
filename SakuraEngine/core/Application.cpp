@@ -23,6 +23,14 @@ namespace SKR {
 		dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& event) { return this->OnWindowClose(event); });
 
 		SKR_CORE_DEBUG("{0}", event.ToString());
+
+		// Handle the event in the order of layers.
+		for (std::vector<Layer*>::iterator iter = layerStack.end(); iter != layerStack.begin();)
+		{
+			(*--iter)->OnEvent(event);
+			if (event.IsHandled())
+				break;
+		}
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& event)
@@ -35,7 +43,20 @@ namespace SKR {
 	{
 		while (isRunning)
 		{
+			for (Layer* layer : layerStack)
+				layer->OnUpdate();
+
 			window->OnUpdate();
 		}
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		layerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		layerStack.PushOverlay(layer);
 	}
 }

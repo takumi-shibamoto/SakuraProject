@@ -1,7 +1,8 @@
 #pragma once
 
 /// <summary> Include the header files that are used by the client. </summary>
-#include "Application.h"
+#include "core/Application.h"
+#include "layer/Layer.h"
 #include "logging/Log.h"
 
 /// <summary> Entry Point. </summary>

@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Window.h"
-#include "event/WindowEvent.h"
 #include <memory>
+
+#include "core/Window.h"
+#include "event/WindowEvent.h"
+#include "layer/LayerStack.h"
 
 namespace SKR {
 	/// <summary>
@@ -32,6 +34,18 @@ namespace SKR {
 		/// <param name="event"></param>
 		void OnEvent(Event& event);
 
+		/// <summary>
+		/// Push the layer to the layer stack.
+		/// </summary>
+		/// <param name="layer">Pointer of the layer to push.</param>
+		void PushLayer(Layer* layer);
+
+		/// <summary>
+		/// Push the overlay layer to the layer stack.
+		/// </summary>
+		/// <param name="layer">Pointer of the layer to push.</param>
+		void PushOverlay(Layer* layer);
+
 	private:
 		/// <summary>
 		/// Called when the window close event happens.
@@ -40,8 +54,15 @@ namespace SKR {
 		/// <returns>Always true.</returns>
 		bool OnWindowClose(WindowCloseEvent& event);
 
+		// Layer stack that stores all the layers.
+		LayerStack layerStack;
+
+		// Unique pointer to the window.
 		std::unique_ptr<Window> window;
+
+		// Boolean to determine if the application is currently running or not.
 		bool isRunning = true;
+
 	};
 
 	/// <summary>

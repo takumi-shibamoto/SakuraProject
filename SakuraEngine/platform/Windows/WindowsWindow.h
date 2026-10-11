@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Window.h"
+#include "core/Window.h"
 #include <GLFW/glfw3.h>
 
 namespace SKR {

@@ -86,6 +86,12 @@ namespace SKR {
 			return GetCategoryFlags() & category;
 		}
 
+		/// <summary>
+		/// Get if the event has been handled or not.
+		/// </summary>
+		/// <returns>Boolean that represents if the event has been handled or not.</returns>
+		inline bool IsHandled() const { return handled; }
+
 	protected:
 		// data member to check if the event has already been handled.
 		bool handled = false;
