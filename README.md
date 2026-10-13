@@ -4,10 +4,10 @@ A WIP custom 2D game engine / graphics framework built from scratch using Modern
 <h2>Technical Dependencies</h2>
 <ul>
   <li>Language: C++23</li>
-  <li>Graphics API: OpenGL 3.3 (Core Profile)</li>
+  <li>Graphics API: OpenGL 4.6 (Core Profile)</li>
   <li>Build System: Modern CMake (Out-of-source build)</li>
-  <li>Dependencies: GLFW, GLAD</li>
-  <li>Tools: Visual Studio 2022</li>
+  <li>Dependencies: GLFW, GLAD, spdlog</li>
+  <li>Tools: Visual Studio</li>
 </ul>
 
 <h2>How to build</h2>
