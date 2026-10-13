@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
-set(VCPKG_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/extern/vcpkg")
+set(VCPKG_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg")
 
 # Set the toolchain file for vcpkg if it exists and is not already defined
 if (EXISTS "${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

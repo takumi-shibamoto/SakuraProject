@@ -1,6 +1,5 @@
 {
   "dependencies": [
-    "glad",
     "glfw3",
     "spdlog"
   ]

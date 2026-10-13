@@ -67,7 +67,7 @@ namespace SKR {
 		{
 			// Set the GLFW version to 4.1
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 
 			// Set the opengl profile to core profile so that old functions are not being used.
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
