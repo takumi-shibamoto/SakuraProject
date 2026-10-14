@@ -7,6 +7,8 @@
 #include "event/WindowEvent.h"
 #include "event/MouseEvent.h"
 
+#include "glad/glad.h"
+
 namespace SKR {
 
 	/// <summary>
@@ -89,6 +91,10 @@ namespace SKR {
 
 		// Set the current context to the window created.
 		glfwMakeContextCurrent(window);
+
+		// Initialize Glad
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		SKR_CORE_ASSERT(status, "Failed to initialize Glad.")
 
 		// Set the window data to the user data of glfw so that the event callback funciton can be used.
 		glfwSetWindowUserPointer(window, &data);

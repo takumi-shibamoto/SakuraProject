@@ -42,7 +42,7 @@ target_sources(SakuraEngine PRIVATE
 # Check the platform and include necessary sources and preprocessor Definitions
 if (WIN32)
     # Set the preprocessor definitions to contain windows plaform
-    target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS)
+    target_compile_definitions(SakuraEngine PRIVATE SKR_PLATFORM_WINDOWS GLFW_INCLUDE_NONE)
 
     # Set the target source to contain windows platform files
     target_sources(SakuraEngine PRIVATE 
