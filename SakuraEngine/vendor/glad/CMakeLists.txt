@@ -8,4 +8,4 @@ add_library(glad STATIC
 )
 
 # Set the target include directories
-target_include_directories(glad PUBLIC "glad/include")
+target_include_directories(glad PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
