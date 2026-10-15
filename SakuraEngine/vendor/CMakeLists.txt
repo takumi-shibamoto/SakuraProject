@@ -1,14 +1,6 @@
-# Add glad as the static library
-add_library(glad STATIC
-
-    "glad/src/glad.c"
-    "glad/include/glad/glad.h"
-    "glad/include/KHR/khrplatform.h"
-
-)
-
-# Set the target include directories
-target_include_directories(glad PUBLIC "glad/include")
+# add the external libraries as subdirectories
+add_subdirectory(glad)
+add_subdirectory(imgui)
 
 # Link the libraries to the engine.
-target_link_libraries(SakuraEngine PRIVATE glad)
+target_link_libraries(SakuraEngine PRIVATE glad ImGui)
