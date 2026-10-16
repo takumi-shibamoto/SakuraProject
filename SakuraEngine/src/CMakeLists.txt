@@ -24,6 +24,10 @@ target_sources(SakuraEngine PRIVATE
     graphics/Shader.cpp
     graphics/Shader.h
 
+    # ImGui Folder
+    imgui/ImGuiLayer.cpp
+    imgui/ImGuiLayer.h
+
     # Layer Folder
     layer/Layer.cpp
     layer/Layer.h

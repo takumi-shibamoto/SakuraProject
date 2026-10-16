@@ -8,7 +8,10 @@ namespace SKR {
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : layers)
+		{
+			layer->OnDetached();
 			delete layer;
+		}
 	}
 
 	void LayerStack::PushLayer(Layer* layer)
