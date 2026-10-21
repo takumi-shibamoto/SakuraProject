@@ -77,6 +77,12 @@ namespace SKR {
 		virtual void SetVSync(bool sync) = 0;
 
 		/// <summary>
+		/// Get the pointer to the window of the graphic library used.
+		/// </summary>
+		/// <returns>void pointer to the window.</returns>
+		virtual void* GetNativeWindow() = 0;
+
+		/// <summary>
 		/// Create the window with the given properties.
 		/// </summary>
 		/// <param name="props">property of the window to create.</param>

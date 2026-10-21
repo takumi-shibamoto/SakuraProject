@@ -3,8 +3,13 @@
 #include "logging/Log.h"
 
 namespace SKR {
+	Application* Application::instance = nullptr;
+
 	Application::Application()
 	{
+		SKR_CORE_ASSERT(!instance, "Applicaiton Already Exists!");
+		instance = this;
+
 		window = std::unique_ptr<Window>(Window::Create());
 		window->SetEventCallback([this](Event& event) { this->OnEvent(event); });
 	}

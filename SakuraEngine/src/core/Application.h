@@ -46,7 +46,22 @@ namespace SKR {
 		/// <param name="layer">Pointer of the layer to push.</param>
 		void PushOverlay(Layer* layer);
 
+		/// <summary>
+		/// Get the window.
+		/// </summary>
+		/// <returns>Reference to the window of the application.</returns>
+		inline Window& GetWindow() { return *window; }
+
+		/// <summary>
+		/// Get the instance of the application.
+		/// </summary>
+		/// <returns>Reference to the application instance.</returns>
+		inline static Application& Get() { return *instance; }
+
 	private:
+		// singleton instance for the application.
+		static Application* instance;
+
 		/// <summary>
 		/// Called when the window close event happens.
 		/// </summary>

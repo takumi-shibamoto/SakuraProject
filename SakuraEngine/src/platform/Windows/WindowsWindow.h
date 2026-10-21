@@ -48,6 +48,12 @@ namespace SKR {
 		inline bool IsVSync() const override { return data.vSync; }
 
 		/// <summary>
+		/// Get the GLFW window pointer as a void pointer.
+		/// </summary>
+		/// <returns>pointer to the GLFW window.</returns>
+		inline void* GetNativeWindow() override { return static_cast<void*>(window); }
+
+		/// <summary>
 		/// SEt the VSync mode of the window.
 		/// </summary>
 		/// <param name="enabled">The value to set the VSync mode.</param>
