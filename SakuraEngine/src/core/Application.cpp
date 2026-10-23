@@ -6,12 +6,16 @@ namespace SKR {
 	Application* Application::instance = nullptr;
 
 	Application::Application()
+		: imguiLayer{ nullptr }
 	{
 		SKR_CORE_ASSERT(!instance, "Applicaiton Already Exists!");
 		instance = this;
 
 		window = std::unique_ptr<Window>(Window::Create());
 		window->SetEventCallback([this](Event& event) { this->OnEvent(event); });
+
+		imguiLayer = new ImGuiLayer();
+		PushOverlay(imguiLayer);
 	}
 
 	Application::~Application()
@@ -50,6 +54,9 @@ namespace SKR {
 		{
 			for (Layer* layer : layerStack)
 				layer->OnUpdate();
+
+			imguiLayer->Begin();
+			imguiLayer->End();
 
 			window->OnUpdate();
 		}

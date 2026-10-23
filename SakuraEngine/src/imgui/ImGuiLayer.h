@@ -7,12 +7,15 @@ namespace SKR {
 
 	class SKR_API ImGuiLayer : public Layer
 	{
+	public:
 		ImGuiLayer();
 		~ImGuiLayer() override;
 		
 		void OnAttached() override;
 		void OnDetached() override;
-		void OnUpdate() override;
+
+		void Begin();
+		void End();
 		void OnEvent(Event& event) override;
 	};
 

@@ -5,6 +5,7 @@
 #include "core/Window.h"
 #include "event/WindowEvent.h"
 #include "layer/LayerStack.h"
+#include "imgui/ImGuiLayer.h"
 
 namespace SKR {
 	/// <summary>
@@ -71,6 +72,9 @@ namespace SKR {
 
 		// Layer stack that stores all the layers.
 		LayerStack layerStack;
+
+		// Instance of the imgui layer.
+		ImGuiLayer* imguiLayer;
 
 		// Unique pointer to the window.
 		std::unique_ptr<Window> window;
