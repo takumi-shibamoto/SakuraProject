@@ -2,6 +2,9 @@
 #include "Application.h"
 #include "logging/Log.h"
 
+#include <GLFW/glfw3.h> // Delete when implementing renderer.
+#include <glad/glad.h> // Delete when implementing renderer.
+
 namespace SKR {
 	Application* Application::instance = nullptr;
 
@@ -52,10 +55,19 @@ namespace SKR {
 	{
 		while (isRunning)
 		{
+			//specify what color to clear the color buffer
+			//Delete after implementing renderer.
+			glClearColor(0.2f, 0.3f, 0.3f, 1.f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			for (Layer* layer : layerStack)
 				layer->OnUpdate();
 
 			imguiLayer->Begin();
+
+			for (Layer* layer : layerStack)
+				layer->OnImGuiRender();
+
 			imguiLayer->End();
 
 			window->OnUpdate();

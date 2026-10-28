@@ -50,6 +50,11 @@ namespace SKR {
 		/// <returns>std::string that represents the debug name.</returns>
 		inline const std::string GetName() const { return debugName; }
 
+		/// <summary>
+		/// Called every frame to render the imgui related GUI.
+		/// </summary>
+		virtual void OnImGuiRender() {}
+
 	private:
 		// Debug name of the layer.
 		std::string debugName;

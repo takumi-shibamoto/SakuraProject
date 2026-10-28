@@ -71,10 +71,6 @@ namespace SKR {
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();		
-		
-		// Show the Demo window.
-		bool showDemoWindow{ true };
-		ImGui::ShowDemoWindow(&showDemoWindow);
 	}
 
 	void ImGuiLayer::End()
@@ -97,6 +93,16 @@ namespace SKR {
 
 	void ImGuiLayer::OnEvent(Event& event)
 	{
+		// Set the handled data member of the event if the imgui is capturing the keyboard or the mouse.
+		ImGuiIO& io{ ImGui::GetIO() };
+		event.handled |= event.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
+		event.handled |= event.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
+	}
 
+	void ImGuiLayer::OnImGuiRender()
+	{
+		// Show the Demo window.
+		bool showDemoWindow{ true };
+		ImGui::ShowDemoWindow(&showDemoWindow);
 	}
 }
