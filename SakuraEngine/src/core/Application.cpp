@@ -34,8 +34,6 @@ namespace SKR {
 		// Dispatch the event to the window closed event.
 		dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& event) { return this->OnWindowClose(event); });
 
-		SKR_CORE_DEBUG("{0}", event.ToString());
-
 		// Handle the event in the order of layers.
 		for (std::vector<Layer*>::iterator iter = layerStack.end(); iter != layerStack.begin();)
 		{

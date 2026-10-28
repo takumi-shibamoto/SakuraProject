@@ -117,9 +117,9 @@ class ExampleLayer : public SKR::Layer
 public:
     ExampleLayer() : Layer{ "Example" } {}
 
-    void OnUpdate() override { SKR_INFO("Example Layer : Update"); }
+    void OnUpdate() override {  }
 
-    void OnEvent(SKR::Event& event) override { SKR_DEBUG("{0}", event.ToString()); }
+    void OnEvent(SKR::Event& event) override {  }
 };
 
 class Sandbox : public SKR::Application
