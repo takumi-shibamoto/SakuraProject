@@ -41,6 +41,9 @@ target_sources(SakuraEngine PRIVATE
     # Math Folder
     math/Vector2D.cpp
     math/Vector2D.h
+
+    # Input Folder
+    input/Input.h
 )
 
 # Check the platform and include necessary sources and preprocessor Definitions
@@ -52,6 +55,8 @@ if (WIN32)
     target_sources(SakuraEngine PRIVATE 
         platform/Windows/WindowsWindow.cpp
         platform/Windows/WindowsWindow.h
+        platform/Windows/WindowsInput.cpp
+        platform/Windows/WindowsInput.h
     )
 endif()
 

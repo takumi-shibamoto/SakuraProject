@@ -4,6 +4,7 @@
 #include "core/Application.h"
 #include "layer/Layer.h"
 #include "logging/Log.h"
+#include "input/Input.h"
 
 /// <summary> Entry Point. </summary>
 #include "core/EntryPoint.h"

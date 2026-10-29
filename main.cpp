@@ -85,9 +85,6 @@
 //    //render loop
 //    while (!glfwWindowShouldClose(window))
 //    {
-//        //Specify what color to clear the color buffer
-//        glClearColor(0.2f, 0.3f, 0.3f, 1.f);
-//        glClear(GL_COLOR_BUFFER_BIT);
 //
 //        //Activate the shader.
 //        shader.Use();
