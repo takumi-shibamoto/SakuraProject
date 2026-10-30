@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.22.1)
 
+# vcpkg settings
 set(VCPKG_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg")
 
 # Set the toolchain file for vcpkg if it exists and is not already defined
@@ -19,12 +20,15 @@ if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/vcpkg.json")
     set(VCPKG_MANIFEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
 
+# Create the project
 project(SakuraProject)
 
+# Set the output directory.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
+# Set the CPP standard
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -35,19 +39,10 @@ include(GNUInstallDirs)
 set(EXTERNAL_INCLUDES "")
 
 # Add the sub directories
+# Engine
 add_subdirectory(SakuraEngine)
+# Application
+add_subdirectory(Sandbox)
 
-file(GLOB_RECURSE SHADERS CONFIGURE_DEPENDS "assets/shaders/*")
-add_executable(Application main.cpp ${SHADERS})
-
-# Set the macro that the application is on windows platform
-target_compile_definitions(Application PRIVATE SKR_PLATFORM_WINDOWS)
-
-set_target_properties(Application PROPERTIES
-    VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-)
-
-# link all the libraries
-target_link_libraries(Application PRIVATE SakuraEngine)
-
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Application)
+# Set the default startup project to ve the sandbox project.
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Sandbox)
