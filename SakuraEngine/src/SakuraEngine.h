@@ -4,6 +4,9 @@
 #include "core/Application.h"
 #include "layer/Layer.h"
 #include "logging/Log.h"
+
+#include "input/ButtonCode.h"
+#include "input/KeyCode.h"
 #include "input/Input.h"
 
 /// <summary> Entry Point. </summary>

@@ -44,6 +44,8 @@ target_sources(SakuraEngine PRIVATE
 
     # Input Folder
     input/Input.h
+    input/KeyCode.h
+    input/ButtonCode.h
 )
 
 # Check the platform and include necessary sources and preprocessor Definitions
