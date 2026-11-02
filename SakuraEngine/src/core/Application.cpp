@@ -19,6 +19,40 @@ namespace SKR {
 
 		imguiLayer = new ImGuiLayer();
 		PushOverlay(imguiLayer);
+
+		//Test verticies triangle.
+		float vertices[] = {
+		    -0.5f, -0.5f, 0.0f, 1.f, 0.f, 0.f,
+		        0.5f, -0.5f, 0.0f, 0.f, 1.f, 0.f,
+		        0.0f,  0.5f, 0.0f, 0.f, 0.f, 1.f
+		};
+		
+		//Generate the vertex array object
+		glGenVertexArrays(1, &VAO);
+		
+		//Generate the vertex buffer object
+		glGenBuffers(1, &VBO);
+
+		//Bind the vertex array object
+		glBindVertexArray(VAO);
+
+		//Bind the buffer
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+		//Copy the vertex data into the buffer's memory.
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		//Specify the vertex attribute and enable them
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(0);
+
+		//Specify the color attribute and enable them
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+		glEnableVertexAttribArray(1);
+
+		//Unbind VAO and VBO
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindVertexArray(0);
 	}
 
 	Application::~Application()
@@ -46,6 +80,8 @@ namespace SKR {
 	bool Application::OnWindowClose([[maybe_unused]] WindowCloseEvent& event)
 	{
 		isRunning = false;
+		glDeleteVertexArrays(1, &VAO);
+		glDeleteBuffers(1, &VBO);
 		return true;
 	}
 
@@ -67,6 +103,10 @@ namespace SKR {
 				layer->OnImGuiRender();
 
 			imguiLayer->End();
+
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glBindVertexArray(0);
 
 			window->OnUpdate();
 		}

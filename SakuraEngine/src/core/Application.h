@@ -82,6 +82,14 @@ namespace SKR {
 		// Boolean to determine if the application is currently running or not.
 		bool isRunning = true;
 
+		// Vertex Array Object
+		unsigned int VAO;
+
+		// Vertex Buffer Object
+		unsigned int VBO;
+
+		// Element Buffer Object
+		unsigned int EBO;
 	};
 
 	/// <summary>
