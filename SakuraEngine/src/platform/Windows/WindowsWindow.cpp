@@ -43,7 +43,7 @@ namespace SKR {
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(window);
+		context->SwapBuffer();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
@@ -89,12 +89,9 @@ namespace SKR {
 		// Create the window and set the window pointer.
 		window = glfwCreateWindow(prop.width, prop.height, prop.title.c_str(), NULL, NULL);
 
-		// Set the current context to the window created.
-		glfwMakeContextCurrent(window);
-
-		// Initialize Glad
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		SKR_CORE_ASSERT(status, "Failed to initialize Glad.")
+		// Initialize the opengl context.
+		context = new OpenGLContext(window);
+		context->Init();
 
 		// Set the window data to the user data of glfw so that the event callback funciton can be used.
 		glfwSetWindowUserPointer(window, &data);
@@ -156,7 +153,7 @@ namespace SKR {
 			});
 
 		// Key callback
-		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, [[maybe_unused]] int scancode, [[maybe_unused]] int action, [[maybe_unused]] int mods)
 			{
 				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 
@@ -185,7 +182,7 @@ namespace SKR {
 			});
 
 		// Mouse Button callback
-		glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, int mods)
+		glfwSetMouseButtonCallback(window, [](GLFWwindow* window, int button, int action, [[maybe_unused]] int mods)
 			{
 				WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 

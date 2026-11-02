@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/Window.h"
+#include "OpenGLContext.h"
 #include <GLFW/glfw3.h>
 
 namespace SKR {
@@ -66,6 +67,9 @@ namespace SKR {
 	private:
 		// Pointer to the glfw window.
 		GLFWwindow* window;
+
+		// Pointer to the opengl context.
+		OpenGLContext* context;
 
 		/// <summary>
 		/// Structure to contain all the window data. Mainly for event callback.

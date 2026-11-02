@@ -21,6 +21,7 @@ target_sources(SakuraEngine PRIVATE
     event/WindowEvent.h
 
     # Graphics Folder
+    graphics/Context.h
     graphics/Shader.cpp
     graphics/Shader.h
 
@@ -55,11 +56,22 @@ if (WIN32)
 
     # Set the target source to contain windows platform files
     target_sources(SakuraEngine PRIVATE 
+        platform/Windows/OpenGLContext.cpp
+        platform/Windows/OpenGLContext.h
         platform/Windows/WindowsWindow.cpp
         platform/Windows/WindowsWindow.h
         platform/Windows/WindowsInput.cpp
         platform/Windows/WindowsInput.h
     )
+endif()
+
+# Set the warning level
+if(MSVC)
+    # Visual Studio
+    target_compile_options(SakuraEngine PRIVATE /W4 /WX)
+else()
+    # GCC / Clang
+    target_compile_options(SakuraEngine PRIVATE -Wall -Wextra -Werror)
 endif()
 
 # Set the precompiled header

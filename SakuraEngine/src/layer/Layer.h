@@ -42,7 +42,7 @@ namespace SKR {
 		/// Event callback function for the layer.
 		/// </summary>
 		/// <param name="event"></param>
-		virtual void OnEvent(Event& event) {};
+		virtual void OnEvent([[maybe_unused]] Event& event) {};
 
 		/// <summary>
 		/// Get the debug name.

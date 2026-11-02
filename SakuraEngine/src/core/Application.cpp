@@ -43,7 +43,7 @@ namespace SKR {
 		}
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& event)
+	bool Application::OnWindowClose([[maybe_unused]] WindowCloseEvent& event)
 	{
 		isRunning = false;
 		return true;
