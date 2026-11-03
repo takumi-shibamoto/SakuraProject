@@ -53,6 +53,9 @@ namespace SKR {
 		//Unbind VAO and VBO
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
+
+		// Create the shader
+		shader = std::make_unique<Shader>("assets/shaders/Basic.vert", "assets/shaders/Basic.frag");
 	}
 
 	Application::~Application()
@@ -103,6 +106,9 @@ namespace SKR {
 				layer->OnImGuiRender();
 
 			imguiLayer->End();
+
+			//Activate the shader.
+			shader->Use();
 
 			glBindVertexArray(VAO);
 			glDrawArrays(GL_TRIANGLES, 0, 3);

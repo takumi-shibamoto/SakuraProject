@@ -6,6 +6,7 @@
 #include "event/WindowEvent.h"
 #include "layer/LayerStack.h"
 #include "imgui/ImGuiLayer.h"
+#include "graphics/Shader.h"
 
 namespace SKR {
 	/// <summary>
@@ -90,6 +91,9 @@ namespace SKR {
 
 		// Element Buffer Object
 		unsigned int EBO;
+
+		// Unique pointer to the shader.
+		std::unique_ptr<Shader> shader;
 	};
 
 	/// <summary>

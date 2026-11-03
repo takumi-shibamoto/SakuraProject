@@ -26,9 +26,6 @@
 //    //Set a callback to update the viewport when the window is resized.
 //    glfwSetFramebufferSizeCallback(window, frame_buffer_size_callback);
 //
-//    //Create a shader program.
-//    sakura::Shader shader("assets/shaders/Basic.vert", "assets/shaders/Basic.frag");
-//
 //    //render loop
 //    while (!glfwWindowShouldClose(window))
 //    {

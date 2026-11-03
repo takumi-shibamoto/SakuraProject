@@ -56,8 +56,8 @@ if (WIN32)
 
     # Set the target source to contain windows platform files
     target_sources(SakuraEngine PRIVATE 
-        platform/Windows/OpenGLContext.cpp
-        platform/Windows/OpenGLContext.h
+        platform/OpenGL/OpenGLContext.cpp
+        platform/OpenGL/OpenGLContext.h
         platform/Windows/WindowsWindow.cpp
         platform/Windows/WindowsWindow.h
         platform/Windows/WindowsInput.cpp

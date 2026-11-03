@@ -12,6 +12,8 @@
 #include "skrpch.h"
 #include "Shader.h"
 
+#include "logging/Log.h"
+
 #include <glad/glad.h>
 
 namespace SKR
@@ -49,7 +51,8 @@ namespace SKR
 		}
 		catch(std::ifstream::failure e)
 		{
-			std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+			SKR_CORE_ERROR("Shader file not successfully read!");
+			SKR_CORE_ASSERT(false, e.what());
 		}
 
 		//Convert the source code string to C string
@@ -75,7 +78,8 @@ namespace SKR
 		if (!success)
 		{
 			glGetShaderInfoLog(vertex, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+			SKR_CORE_ERROR("Vertex Shader Compilation Failed!");
+			SKR_CORE_ASSERT(false, infoLog);
 		}
 
 		//Create the fragment shader
@@ -90,7 +94,8 @@ namespace SKR
 		if (!success)
 		{
 			glGetShaderInfoLog(fragment, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+			SKR_CORE_ERROR("Vertex Shader Compilation Failed!");
+			SKR_CORE_ASSERT(false, infoLog);
 		}
 
 		//Create the shader program
@@ -106,7 +111,8 @@ namespace SKR
 		if (!success)
 		{
 			glGetProgramInfoLog(ID, 512, NULL, infoLog);
-			std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << std::endl;
+			SKR_CORE_ERROR("Shader Linking Failed!");
+			SKR_CORE_ASSERT(false, infoLog);
 		}
 
 		//Delete the vertex and fragment shader since it's already linked.
