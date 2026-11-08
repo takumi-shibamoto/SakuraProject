@@ -21,6 +21,8 @@ target_sources(SakuraEngine PRIVATE
     event/WindowEvent.h
 
     # Graphics Folder
+    graphics/Buffer.cpp
+    graphics/Buffer.h
     graphics/Context.h
     graphics/Shader.cpp
     graphics/Shader.h
@@ -56,8 +58,11 @@ if (WIN32)
 
     # Set the target source to contain windows platform files
     target_sources(SakuraEngine PRIVATE 
+        platform/OpenGL/OpenGLBuffer.cpp
+        platform/OpenGL/OpenGLBuffer.h
         platform/OpenGL/OpenGLContext.cpp
         platform/OpenGL/OpenGLContext.h
+
         platform/Windows/WindowsWindow.cpp
         platform/Windows/WindowsWindow.h
         platform/Windows/WindowsInput.cpp

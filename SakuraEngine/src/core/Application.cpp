@@ -29,18 +29,11 @@ namespace SKR {
 		
 		//Generate the vertex array object
 		glGenVertexArrays(1, &VAO);
-		
-		//Generate the vertex buffer object
-		glGenBuffers(1, &VBO);
 
 		//Bind the vertex array object
 		glBindVertexArray(VAO);
 
-		//Bind the buffer
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-		//Copy the vertex data into the buffer's memory.
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float)));
 
 		//Specify the vertex attribute and enable them
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
@@ -51,7 +44,7 @@ namespace SKR {
 		glEnableVertexAttribArray(1);
 
 		//Unbind VAO and VBO
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		vertexBuffer->UnBind();
 		glBindVertexArray(0);
 
 		// Create the shader
@@ -84,7 +77,6 @@ namespace SKR {
 	{
 		isRunning = false;
 		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
 		return true;
 	}
 

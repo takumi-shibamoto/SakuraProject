@@ -7,6 +7,7 @@
 #include "layer/LayerStack.h"
 #include "imgui/ImGuiLayer.h"
 #include "graphics/Shader.h"
+#include "graphics/Buffer.h"
 
 namespace SKR {
 	/// <summary>
@@ -87,7 +88,7 @@ namespace SKR {
 		unsigned int VAO;
 
 		// Vertex Buffer Object
-		unsigned int VBO;
+		std::unique_ptr<VertexBuffer> vertexBuffer;
 
 		// Element Buffer Object
 		unsigned int EBO;
