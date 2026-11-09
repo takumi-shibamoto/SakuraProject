@@ -9,7 +9,7 @@ namespace SKR {
 	class OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* vertices, size_t size);
+		OpenGLVertexBuffer(float* vertices, uint32_t size);
 		~OpenGLVertexBuffer();
 
 		void Bind() override;
@@ -19,9 +19,20 @@ namespace SKR {
 		uint32_t VBO;
 	};
 
-	//class OpenGLIndexBuffer : public IndexBuffer
-	//{
+	class OpenGLIndexBuffer : public IndexBuffer
+	{
+	public:
+		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		~OpenGLIndexBuffer();
 
-	//};
+		void Bind() override;
+		void UnBind() override;
+
+		inline uint32_t GetCount() const override { return count; }
+
+	private:
+		uint32_t IBO;
+		uint32_t count;
+	};
 
 }
