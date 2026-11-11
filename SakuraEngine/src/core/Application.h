@@ -90,8 +90,8 @@ namespace SKR {
 		// Vertex Buffer Object
 		std::unique_ptr<VertexBuffer> vertexBuffer;
 
-		// Element Buffer Object
-		unsigned int EBO;
+		// Index Buffer Object
+		std::unique_ptr<IndexBuffer> indexBuffer;
 
 		// Unique pointer to the shader.
 		std::unique_ptr<Shader> shader;

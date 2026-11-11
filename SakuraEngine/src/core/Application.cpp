@@ -24,7 +24,13 @@ namespace SKR {
 		float vertices[] = {
 		    -0.5f, -0.5f, 0.0f, 1.f, 0.f, 0.f,
 		        0.5f, -0.5f, 0.0f, 0.f, 1.f, 0.f,
-		        0.0f,  0.5f, 0.0f, 0.f, 0.f, 1.f
+		        0.5f,  0.5f, 0.0f, 0.f, 0.f, 1.f,
+				-0.5f, 0.5f, 0.0f, 0.f, 0.f, 0.f
+		};
+
+		uint32_t indices[] = {
+			0,1,2,
+			3,2,0
 		};
 		
 		//Generate the vertex array object
@@ -33,7 +39,8 @@ namespace SKR {
 		//Bind the vertex array object
 		glBindVertexArray(VAO);
 
-		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices) / sizeof(float)));
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
 		//Specify the vertex attribute and enable them
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
@@ -103,7 +110,7 @@ namespace SKR {
 			shader->Use();
 
 			glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 
 			window->OnUpdate();
