@@ -42,6 +42,11 @@ namespace SKR {
 		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 
+		BufferLayout layout = {
+			{"aPos", ShaderDataType::Float3},
+			{"aColor", ShaderDataType::Float4}
+		};
+
 		//Specify the vertex attribute and enable them
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 		glEnableVertexAttribArray(0);
